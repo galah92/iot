@@ -5,6 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "async-mqtt": "^2.6.3",
     "mqtt": "^4.3.7",
     "pg": "^8.8.0",
     "tslib": "^2.3.0"
