@@ -9,9 +9,12 @@ client.on('error', (error: Error) => {
 
 client.on('connect', async () => {
   console.log('CONNECTED');
-  for (const x in [1, 2, 3]) {
-    x as never;
-    await client.publish('mytopic', 'Hello HiveMQ');
+  /* eslint-disable no-constant-condition */
+  let i = 0;
+  while (true) {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await client.publish('mytopic', `Hello HiveMQ (${i})`);
+    i++;
   }
   client.end();
 });

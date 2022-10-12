@@ -39,6 +39,8 @@ services:
   mqtt:
     image: hivemq/hivemq4
     restart: unless-stopped
+    ports:
+      - '8080:8080'
 
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
