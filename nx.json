@@ -42,7 +42,7 @@
     "appsDir": "packages",
     "libsDir": "packages"
   },
-  "defaultProject": "producer",
+  "defaultProject": "mqtt-producer",
   "generators": {
     "@nrwl/react": {
       "application": {

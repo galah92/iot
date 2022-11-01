@@ -1,7 +1,7 @@
 {
-  "name": "producer",
+  "name": "mqtt-producer",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/producer/src",
+  "sourceRoot": "packages/mqtt-producer/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,10 +10,10 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/packages/producer",
-        "main": "packages/producer/src/main.ts",
-        "tsConfig": "packages/producer/tsconfig.app.json",
-        "assets": ["packages/producer/src/assets"]
+        "outputPath": "dist/packages/mqtt-producer",
+        "main": "packages/mqtt-producer/src/main.ts",
+        "tsConfig": "packages/mqtt-producer/tsconfig.app.json",
+        "assets": ["packages/mqtt-producer/src/assets"]
       },
       "configurations": {
         "production": {
@@ -22,8 +22,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "packages/producer/src/environments/environment.ts",
-              "with": "packages/producer/src/environments/environment.prod.ts"
+              "replace": "packages/mqtt-producer/src/environments/environment.ts",
+              "with": "packages/mqtt-producer/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -32,11 +32,11 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "producer:build"
+        "buildTarget": "mqtt-producer:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "producer:build:production"
+          "buildTarget": "mqtt-producer:build:production"
         }
       }
     },
@@ -44,14 +44,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/producer/**/*.ts"]
+        "lintFilePatterns": ["packages/mqtt-producer/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/producer"],
+      "outputs": ["coverage/packages/mqtt-producer"],
       "options": {
-        "jestConfig": "packages/producer/jest.config.ts",
+        "jestConfig": "packages/mqtt-producer/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,7 +1,7 @@
 {
-  "name": "consumer",
+  "name": "mqtt-consumer",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/consumer/src",
+  "sourceRoot": "packages/mqtt-consumer/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,10 +10,10 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/packages/consumer",
-        "main": "packages/consumer/src/main.ts",
-        "tsConfig": "packages/consumer/tsconfig.app.json",
-        "assets": ["packages/consumer/src/assets"]
+        "outputPath": "dist/packages/mqtt-consumer",
+        "main": "packages/mqtt-consumer/src/main.ts",
+        "tsConfig": "packages/mqtt-consumer/tsconfig.app.json",
+        "assets": ["packages/mqtt-consumer/src/assets"]
       },
       "configurations": {
         "production": {
@@ -22,8 +22,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "packages/consumer/src/environments/environment.ts",
-              "with": "packages/consumer/src/environments/environment.prod.ts"
+              "replace": "packages/mqtt-consumer/src/environments/environment.ts",
+              "with": "packages/mqtt-consumer/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -32,11 +32,11 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "consumer:build"
+        "buildTarget": "mqtt-consumer:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "consumer:build:production"
+          "buildTarget": "mqtt-consumer:build:production"
         }
       }
     },
@@ -44,14 +44,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/consumer/**/*.ts"]
+        "lintFilePatterns": ["packages/mqtt-consumer/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/consumer"],
+      "outputs": ["coverage/packages/mqtt-consumer"],
       "options": {
-        "jestConfig": "packages/consumer/jest.config.ts",
+        "jestConfig": "packages/mqtt-consumer/jest.config.ts",
         "passWithNoTests": true
       }
     }
