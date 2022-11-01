@@ -1,6 +1,9 @@
 import * as mqtt from 'async-mqtt';
 
-const client = mqtt.connect('mqtt://mqtt');
+const client = mqtt.connect('mqtt://localhost', {
+  // username: 'test',
+  // password: 'test',
+});
 
 client.on('error', (error: Error) => {
   console.log(error);
@@ -13,5 +16,5 @@ client.on('connect', async () => {
 
 client.on('message', (topic, message) => {
   console.log(`MESSAGE [${topic}] [${message.toString()}]`);
-//   client.end();
+  //   client.end();
 });

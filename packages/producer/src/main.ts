@@ -1,7 +1,6 @@
-
 import * as mqtt from 'async-mqtt';
 
-const client = mqtt.connect('mqtt://mqtt');
+const client = mqtt.connect('mqtt://localhost');
 
 client.on('error', (error: Error) => {
   console.log(error);
@@ -13,7 +12,7 @@ client.on('connect', async () => {
   let i = 0;
   while (true) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    await client.publish('mytopic', `Hello HiveMQ (${i})`);
+    await client.publish('mytopic', `Hello RabbitMQ (${i})`);
     i++;
   }
   client.end();

@@ -1,7 +1,7 @@
 {
-  "name": "app1",
+  "name": "consumer",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/app1/src",
+  "sourceRoot": "packages/consumer/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,10 +10,10 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/packages/app1",
-        "main": "packages/app1/src/main.ts",
-        "tsConfig": "packages/app1/tsconfig.app.json",
-        "assets": ["packages/app1/src/assets"]
+        "outputPath": "dist/packages/consumer",
+        "main": "packages/consumer/src/main.ts",
+        "tsConfig": "packages/consumer/tsconfig.app.json",
+        "assets": ["packages/consumer/src/assets"]
       },
       "configurations": {
         "production": {
@@ -22,8 +22,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "packages/app1/src/environments/environment.ts",
-              "with": "packages/app1/src/environments/environment.prod.ts"
+              "replace": "packages/consumer/src/environments/environment.ts",
+              "with": "packages/consumer/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -32,11 +32,11 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "app1:build"
+        "buildTarget": "consumer:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "app1:build:production"
+          "buildTarget": "consumer:build:production"
         }
       }
     },
@@ -44,14 +44,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/app1/**/*.ts"]
+        "lintFilePatterns": ["packages/consumer/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/app1"],
+      "outputs": ["coverage/packages/consumer"],
       "options": {
-        "jestConfig": "packages/app1/jest.config.ts",
+        "jestConfig": "packages/consumer/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'app2',
+  displayName: 'auth',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/app2',
+  coverageDirectory: '../../coverage/packages/auth',
 };
