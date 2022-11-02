@@ -42,7 +42,8 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
-      - 1883:1883
+      - 15692:15692 # rabbitmq_prometheus
+      - 1883:1883 # rabbitmq_mqtt
       # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
       # (Adding the "ports" property to this file will not forward from a Codespace.)
 
