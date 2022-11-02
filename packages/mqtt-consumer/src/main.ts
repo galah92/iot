@@ -1,20 +1,22 @@
 import * as mqtt from 'async-mqtt';
 
-const client = mqtt.connect('mqtt://localhost', {
-  // username: 'test',
-  // password: 'test',
-});
+(async () => {
+  try {
+    const client = await mqtt.connectAsync('mqtt://localhost', {
+      username: 'device',
+      password: 'password',
+    });
+    console.log('CONNECTED');
 
-client.on('error', (error: Error) => {
-  console.log(error);
-});
+    client.on('message', (topic, message) => {
+      console.log(`MESSAGE [${topic}] [${message.toString()}]`);
+      //   client.end();
+    });    
+    // await client.subscribe('bla/telemetry/events');
+    await client.subscribe('devices/device/telemetry/events');
 
-client.on('connect', async () => {
-  console.log('CONNECTED');
-  await client.subscribe('mytopic');
-});
-
-client.on('message', (topic, message) => {
-  console.log(`MESSAGE [${topic}] [${message.toString()}]`);
-  //   client.end();
-});
+    // client.end();
+  } catch (error) {
+    console.log(error);
+  }
+})();

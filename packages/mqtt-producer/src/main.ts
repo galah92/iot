@@ -1,19 +1,25 @@
 import * as mqtt from 'async-mqtt';
 
-const client = mqtt.connect('mqtt://localhost');
-
-client.on('error', (error: Error) => {
-  console.log(error);
-});
-
-client.on('connect', async () => {
-  console.log('CONNECTED');
-  /* eslint-disable no-constant-condition */
-  let i = 0;
-  while (true) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await client.publish('mytopic', `Hello RabbitMQ (${i})`);
-    i++;
+(async () => {
+  try {
+    const client = await mqtt.connectAsync('mqtt://localhost', {
+      username: 'device',
+      password: 'password',
+    });
+    console.log('CONNECTED');
+    let i = 0;
+    /* eslint-disable no-constant-condition */
+    while (i < 3) {
+      console.log(i);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const queue1 = 'bla/telemetry/events';
+      await client.publish(queue1, `Hello RabbitMQ (${i})`);
+      const queue2 = 'bla/telemetry/events';
+      await client.publish(queue2, `Hello RabbitMQ (${i})`);
+      i++;
+    }
+    // client.end();
+  } catch (error) {
+    console.log(error);
   }
-  client.end();
-});
+})();
