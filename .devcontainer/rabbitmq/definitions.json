@@ -32,8 +32,8 @@
       "user": "device",
       "vhost": "/",
       "configure": "^([amq.topic].*)$",
-      "write": ".*",
-      "read": ".*"
+      "write": "^([amq.topic].*)$",
+      "read": "^([amq.topic].*)$"
     }
   ],
   "topic_permissions": [
@@ -41,8 +41,8 @@
       "user": "device",
       "vhost": "/",
       "exchange": "amq.topic",
-      "write": "^({username}..*)$",
-      "read": "^({username}..*)$"
+      "write": "^devices\\.(.*)\\.(state|(telemetry\\.(.*)))$",
+      "read": "^devices\\.(.*)\\.(config|command)$"
     }
   ],
   "parameters": [],
@@ -60,6 +60,27 @@
       "durable": true,
       "auto_delete": false,
       "arguments": {}
+    },
+    {
+      "name": "devices.*.state",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "devices.*.config",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "devices.*.command",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
     }
   ],
   "exchanges": [],
@@ -70,6 +91,30 @@
       "destination": "devices.*.telemetry.*",
       "destination_type": "queue",
       "routing_key": "devices.*.telemetry.*",
+      "arguments": {}
+    },
+    {
+      "source": "amq.topic",
+      "vhost": "/",
+      "destination": "devices.*.state",
+      "destination_type": "queue",
+      "routing_key": "devices.*.state",
+      "arguments": {}
+    },
+    {
+      "source": "amq.topic",
+      "vhost": "/",
+      "destination": "devices.*.config",
+      "destination_type": "queue",
+      "routing_key": "devices.*.config",
+      "arguments": {}
+    },
+    {
+      "source": "amq.topic",
+      "vhost": "/",
+      "destination": "devices.*.command",
+      "destination_type": "queue",
+      "routing_key": "devices.*.command",
       "arguments": {}
     }
   ]

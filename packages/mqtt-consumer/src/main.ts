@@ -10,10 +10,10 @@ import * as mqtt from 'async-mqtt';
 
     client.on('message', (topic, message) => {
       console.log(`MESSAGE [${topic}] [${message.toString()}]`);
-      //   client.end();
-    });    
+    });
     // await client.subscribe('bla/telemetry/events');
-    await client.subscribe('devices/device/telemetry/events');
+    const [grant] = await client.subscribe('devices/deviceId/config');
+    console.log(grant);
 
     // client.end();
   } catch (error) {
