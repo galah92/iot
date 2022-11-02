@@ -1,0 +1,6 @@
+groups:
+  - name: 'rabbitmq.rules'
+    rules:
+      - expr: |
+          rabbitmq_detailed_queue_consumers * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info
+        'record': 'rabbitmq_queue_info'
