@@ -12,17 +12,41 @@ import { Client } from 'pg';
 
   const amqpUrl = process.env.RABBITMQ_URL ?? 'amqp://localhost';
   const conn = await amqplib.connect(amqpUrl);
-  console.log('CONNECTED');
-
-  const exchange = 'amq.topic';
-  const stateQueue = 'devices.*.state';
   const channel = await conn.createChannel();
-  await channel.assertExchange(exchange, 'topic');
-  await channel.assertQueue(stateQueue);
-  channel.bindQueue(stateQueue, exchange, stateQueue);
 
+  const rmqEventExchange = 'amq.rabbitmq.event';
+  const rmqEventQueue = 'connection.*';
+  await channel.assertQueue(rmqEventQueue);
+  channel.bindQueue(rmqEventQueue, rmqEventExchange, rmqEventQueue);
   channel.consume(
-    stateQueue,
+    rmqEventQueue,
+    (msg) => {
+      if (!msg) {
+        console.log('Consumer cancelled by server');
+      } else {
+        type ConnectionEvent = 'created' | 'closed';
+        const event = msg.fields.routingKey.split('.')[1] as ConnectionEvent;
+        const consumerTag = msg.fields.consumerTag;
+        const user = msg.properties.headers.user as string | undefined;
+        const protocol = msg.properties.headers.protocol as string | undefined;
+        const isMqttClient = protocol ? protocol.includes('MQTT') : false;
+        console.log(`${event} | ${consumerTag} | ${user} | ${isMqttClient}`);
+        if (event == 'created' && isMqttClient) {
+          // insert the data to DB
+        } else if (event == 'closed') {
+          // update the data in DB
+        }
+      }
+    },
+    { noAck: true }
+  );
+
+  const rmqMqttExchange = 'amq.topic';
+  const deviceStateQueue = 'devices.*.state';
+  await channel.assertQueue(deviceStateQueue);
+  channel.bindQueue(deviceStateQueue, rmqMqttExchange, deviceStateQueue);
+  channel.consume(
+    deviceStateQueue,
     (msg) => {
       if (!msg) {
         console.log('Consumer cancelled by server');

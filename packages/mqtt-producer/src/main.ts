@@ -6,10 +6,9 @@ import * as mqtt from 'async-mqtt';
       username: 'device',
       password: 'password',
     });
-    console.log('CONNECTED');
     let i = 0;
     /* eslint-disable no-constant-condition */
-    while (i < 1) {
+    while (i < 0) {
       console.log(i);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const topic = 'devices/id_abc/state';
@@ -17,7 +16,7 @@ import * as mqtt from 'async-mqtt';
       await client.publish(topic, JSON.stringify(deviceConfig));
       i++;
     }
-    // client.end();
+    client.end();
   } catch (error) {
     console.log(error);
   }
