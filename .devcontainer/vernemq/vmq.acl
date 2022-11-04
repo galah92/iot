@@ -1,0 +1,11 @@
+# ACL for anonymous clients
+topic bar
+topic write foo
+topic read open_to_all
+
+
+# ACL for user 'john'
+user john
+topic foo
+topic read baz
+topic write open_to_all
