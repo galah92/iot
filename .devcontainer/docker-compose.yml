@@ -104,13 +104,6 @@ services:
       - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/prometheus.yaml
       - ./grafana/dashboards:/dashboards
     environment:
-      # https://grafana.com/plugins/flant-statusmap-panel
-      # https://grafana.com/plugins/grafana-piechart-panel
-      # https://grafana.com/plugins/grafana-polystat-panel
-      # https://grafana.com/plugins/jdbranham-diagram-panel
-      # https://grafana.com/plugins/michaeldmoore-multistat-panel
-      # https://grafana.com/plugins/vonage-status-panel
-      # https://grafana.com/plugins/yesoreyeram-boomtable-panel
       GF_INSTALL_PLUGINS: "flant-statusmap-panel,grafana-piechart-panel"
 
 volumes:

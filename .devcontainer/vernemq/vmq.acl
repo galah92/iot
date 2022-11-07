@@ -1,11 +1,12 @@
 # ACL for anonymous clients
-topic bar
-topic write foo
-topic read open_to_all
-
+pattern read devices/%u/config
+pattern read devices/%u/command
+pattern write devices/%u/state
+pattern write devices/%u/telemetry/#
 
 # ACL for user 'john'
 user john
-topic foo
-topic read baz
-topic write open_to_all
+pattern write devices/%u/config
+pattern write devices/%u/command
+pattern read devices/%u/state
+pattern read devices/%u/telemetry/#

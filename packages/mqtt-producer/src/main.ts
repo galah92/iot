@@ -6,7 +6,7 @@ import * as mqtt from 'async-mqtt';
       username: 'device',
       password: 'password',
     });
-    const [grant] = await client.subscribe('bar', { qos: 0 });
+    const [grant] = await client.subscribe('devices/device/command', { qos: 0 });
     if (grant.qos === 0x80) {
       throw new Error(`Failed subscribing to ${grant.topic}`);
     }
@@ -15,9 +15,12 @@ import * as mqtt from 'async-mqtt';
     /* eslint-disable no-constant-condition */
     while (i < 10000) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      const topic = 'bar';
-      const deviceConfig = { a: 'AA', b: 'BBB', c: 32 };
-      await client.publish(topic, JSON.stringify(deviceConfig));
+      const deviceState = { a: 'AA', b: 'BBB', c: 32 };
+      const stateTopic = 'devices/device/state';
+      await client.publish(stateTopic, JSON.stringify(deviceState));
+      await client.publish(stateTopic, JSON.stringify(deviceState));
+      const badTopic = 'devices/device/bad';
+      await client.publish(badTopic, JSON.stringify(deviceState));
       console.log(i);
       i++;
     }
